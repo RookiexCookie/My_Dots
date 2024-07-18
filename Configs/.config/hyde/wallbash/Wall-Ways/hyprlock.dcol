@@ -3,7 +3,7 @@ $HOME/.config/hypr/hyprlock.conf|${scrDir}/wallbashhyprlock.sh
 # BACKGROUND
 background {
     monitor =
-    path = /home/rookie/.cache/hyde/wall.set
+    path = $HOME/.cache/hyde/wall.set
     blur_passes = 3
     contrast = 0.8916
     brightness = 0.8172
@@ -99,7 +99,7 @@ image {
     rotate = 0 # degrees, counter-clockwise
     reload_time = 2
     border_size = 0
-    reload_cmd = /home/rookie/Work/git_projects/now-clocking/scripts/art
+    reload_cmd = ~/.config/hyprlock/art
     position = -810, 0
     halign = right
     valign = center
@@ -210,7 +210,7 @@ label {
 #weather
 label {
     monitor =
-    text = cmd[update:1000] /home/rookie/.config/hyprlock/weather.sh
+    text = cmd[update:1000] ~/.config/hyprlock/weather.sh
     color = <wallbash_pry4_rgba(1)>
     font_size = 12
     font_family = JetBrains Mono Nerd Font Mono ExtraBold
