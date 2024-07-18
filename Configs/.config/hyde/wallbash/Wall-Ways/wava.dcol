@@ -1,0 +1,44 @@
+$HOME/.config/wava/config|${scrDir}/wallbashwava.sh
+
+
+[general]
+framerate = 40
+[window]
+width=1366
+ height = 340
+ alignment = 'bottom'
+ y_padding = 35
+interactable = true
+ taskbar_icon = true
+ hold_size = true
+
+[wayland]
+ background_layer = true
+
+
+[gl]
+
+ module_1 = bars
+ post_shader = shadow
+
+[input]
+latency = 200
+[output]
+
+ method = wayland_opengl
+ channels = stereo
+
+[color]
+
+ foreground = '#<wallbash_pry4>'
+foreground_opacity = 0.6
+
+[filter]
+
+ integral = 95
+ monstercat = 1
+ waves = 1
+ gravity = 400
+ oddoneout = false
+ autosens = false
+ sensitivity = 100.0

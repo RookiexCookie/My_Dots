@@ -65,7 +65,7 @@ select_output() {
 
 # eval device option
 
-while getopts iops: DeviceOpt; do
+while getopts iop:s: DeviceOpt; do
     case "${DeviceOpt}" in
     i)
         nsink=$(pamixer --list-sources | awk -F '"' 'END {print $(NF - 1)}')
@@ -83,7 +83,7 @@ while getopts iops: DeviceOpt; do
         nsink=$(playerctl --list-all | grep -w "${OPTARG}")
         [ -z "${nsink}" ] && echo "ERROR: Player ${OPTARG} not active..." && exit 0
         ctrl="playerctl"
-        srce="${nsink}"
+        srce="${OPTARG}"  # Use OPTARG directly
         ;;
     s)
         default_sink="$(pamixer --get-default-sink | awk -F '"' 'END{print $(NF - 1)}')"
@@ -93,6 +93,7 @@ while getopts iops: DeviceOpt; do
         ;;
     *) print_error ;;
     esac
+
 done
 
 # set default variables

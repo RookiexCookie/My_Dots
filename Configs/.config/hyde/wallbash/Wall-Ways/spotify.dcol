@@ -1,7 +1,7 @@
 $HOME/.config/spicetify/Themes/Sleek/color.ini|${scrDir}/wallbashspotify.sh
 
 [Wallbash]
-text               = <wallbash_4xa9>
+text               = <wallbash_pry4>
 subtext            = <wallbash_4xa8>
 nav-active-text    = <wallbash_4xa7>
 main               = <wallbash_pry1>
@@ -13,7 +13,7 @@ main-secondary     = <wallbash_2xa2>
 button             = <wallbash_3xa8>
 button-secondary   = <wallbash_3xa7>
 button-active      = <wallbash_3xa6>
-button-disabled    = <wallbash_pry2>
+button-disabled    = <wallbash_pry1>
 nav-active         = <wallbash_3xa2>
 play-button        = <wallbash_3xa3>
 tab-active         = <wallbash_pry2>

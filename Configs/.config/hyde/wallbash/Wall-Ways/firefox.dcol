@@ -1,0 +1,14 @@
+/home/rookie/Work/git_projects/main/extracted-values.css|${scrDir}/wallbashfirefox.sh
+/* Extracted Values */
+.darktheme {
+  --accent: #<wallbash_pry4>;
+  --background: #<wallbash_pry1>;
+  --cards: #<wallbash_pry1>;
+  --fg: #<wallbash_pry4>;
+  --sfg: #<wallbash_pry1>;
+}
+
+.listItem:hover {
+  color: #<wallbash_pry1>;
+  background-color: var(--fg);
+}

@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+
+cd "$(dirname "$0")"
+source ./test
+
+platform="$(get_platform)"
+if [ -z "$platform" ]; then
+  exit
+fi
+
+source="$("$platform"_get_source)"
+art="$("$platform"_get_art)"
+
+# Remove 'file://' prefix from art URL if present
+art="${art#file://}"
+
+data_dir="$(realpath ./data)"
+mkdir -p "$data_dir"
+cache_path="$data_dir/$source.cache"
+img_path="$data_dir/$source.png"
+
+touch "$cache_path"
+content="$(cat "$cache_path")"
+expected_content="$art $NOW_CLOCKING_ARTWORK_TINT"
+
+if [ "$content" != "$expected_content" ]; then
+  echo "$expected_content" > "$cache_path"
+  test -f "$img_path" && rm "$img_path"
+  if [ -n "$art" ]; then
+    if [[ "$art" = http* ]]; then
+      curl -s "$art" -o "$img_path"
+    elif [ -f "$art" ]; then
+      cp "$art" "$img_path"
+    else
+      echo "unknown art: $art" >&2
+      exit 1
+    fi
+      magick "$img_path" -resize "100x100^" -gravity center -extent 100x100 "$img_path"
+  fi
+fi
+
+echo "$img_path"

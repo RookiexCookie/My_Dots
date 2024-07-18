@@ -1,5 +1,5 @@
 $HOME/.config/kitty/theme.conf|killall -SIGUSR1 kitty
-foreground              #<wallbash_txt1>
+foreground              #<wallbash_3xa9>
 background              #<wallbash_pry1>
 selection_foreground    #<wallbash_pry1>
 selection_background    #<wallbash_txt1>

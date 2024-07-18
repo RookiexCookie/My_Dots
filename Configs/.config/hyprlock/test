@@ -1,0 +1,107 @@
+#!/bin/bash
+
+function _load_config {
+  local scripts_dir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+  local config_path="$scripts_dir/../config.env"
+  if [ -f "$config_path" ]; then
+    source "$config_path"
+  fi
+}
+_load_config
+unset _load_config
+
+CACHE_FILE="/path/to/cache_file"
+
+function get_active_player {
+  local players="$(playerctl status -a -f "{{playerName}} {{status}}")"
+  local active_player=""
+
+  # Prioritize players based on status
+  while IFS= read -r line; do
+    player_name=$(echo "$line" | awk '{print $1}')
+    player_status=$(echo "$line" | awk '{print $2}')
+    
+    if [[ "$player_status" == "Playing" ]]; then
+      active_player="$player_name"
+      break
+    elif [[ "$player_status" == "Paused" ]] && [[ -z "$active_player" ]]; then
+      active_player="$player_name"
+    fi
+  done <<< "$players"
+  
+  # Check if the active player is responsive
+  if playerctl -p "$active_player" metadata &>/dev/null; then
+    echo "$active_player"
+  fi
+}
+
+function active_playerctl {
+  local active_player="$(get_active_player)"
+  test -n "$active_player" && playerctl -p "$active_player" "$@"
+}
+
+function get_platform {
+  if command -v cmus-remote >/dev/null && cmus-remote -Q &>/dev/null; then
+    echo cmus
+  elif [ -n "$(get_active_player)" ]; then
+    echo playerctl
+  fi
+}
+
+function playerctl_get_source {
+  get_active_player
+}
+
+function playerctl_get_art {
+  active_playerctl metadata mpris:artUrl | sed 's;https://open.spotify.com;http://i.scdn.co;g'
+}
+
+function playerctl_get_artist {
+  local artist=$(active_playerctl metadata artist)
+
+  if [ -z "$artist" ]; then
+    echo "Bro"
+  else
+    echo "$artist"
+  fi
+}
+
+function playerctl_get_title {
+  local title=$(active_playerctl metadata xesam:title)
+
+  if [[ -z "$title" ]]; then
+    echo "Nothing's Playin"
+  else
+    clean_title=$(echo "$title" | sed -E 's/\([^)]*\)//g; s/\[[^]]*\]//g')
+    # Remove specific words from the title
+    clean_title=$(echo "$clean_title" | sed -E 's/\b(version|male|female|song|theme|||offical|videa)\b//gi')
+    clean_title=$(echo "$clean_title" | sed -E 's/\s*by\s*.*$//i')
+    if [[ "$clean_title" == *-* ]]; then
+      song_title=$(echo "$clean_title" | sed -E 's/.*-\s*//')
+    else
+      song_title="$clean_title"
+    fi
+    echo "$song_title"
+  fi
+}
+
+function update_cache {
+  local platform="$1"
+  local artist="$("$platform"_get_artist)"
+  local title="$("$platform"_get_title)"
+  echo "$artist - $title" > "$CACHE_FILE"
+}
+
+function get_metadata {
+  local platform="$(get_platform)"
+  if [ -z "$platform" ]; then
+    if [ -f "$CACHE_FILE" ]; then
+      cat "$CACHE_FILE"
+    else
+      echo "No metadata available"
+    fi
+  else
+    update_cache "$platform"
+    cat "$CACHE_FILE"
+  fi
+}

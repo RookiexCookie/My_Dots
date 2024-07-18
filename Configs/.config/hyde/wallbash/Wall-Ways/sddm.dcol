@@ -1,0 +1,81 @@
+/usr/share/sddm/themes/Candy/theme.conf|${scrDir}/wallbashsddm.sh
+
+[General]
+
+Background="/usr/share/sddm/themes/Candy/backgrounds/bg.png"
+BackgroundS="/usr/share/sddm/themes/Candy/backgrounds/bg.png"
+
+DimBackgroundImage="0.5"
+
+ScaleImageCropped="true"
+
+ScreenWidth="1280"
+ScreenHeight="720"
+
+
+FullBlur="false"
+PartialBlur="true"
+
+BlurRadius="50"
+HaveFormBackground="true"
+FormPosition="left"
+BackgroundImageHAlignment="right"
+BackgroundImageVAlignment="center"
+MainColor="#<wallbash_pry4>"
+AccentColor="#<wallbash_pry4>"
+BackgroundColor="#<wallbash_pry1>"
+
+OverrideLoginButtonTextColor=""
+
+InterfaceShadowSize="6"
+
+InterfaceShadowOpacity="0.6"
+RoundCorners="15"
+ScreenPadding="0"
+Font="MapleMono"
+FontSize="10"
+
+
+
+## [Interface Behavior]
+
+ForceRightToLeft="false"
+## Revert the layout either because you would like the login to be on the right hand >
+
+ForceLastUser="true"
+## Have the last successfully logged in user appear automatically in the username fie>
+
+ForcePasswordFocus="true"
+## Give automatic focus to the password field. Together with ForceLastUser this makes>
+
+ForceHideCompletePassword="false"
+## If you don't like to see any character at all not even while being entered set thi>
+
+ForceHideVirtualKeyboardButton="false"
+## Do not show the button for the virtual keyboard at all. This will completely disab>
+
+ForceHideSystemButtons="false"
+## Completely disable and hide any power buttons on the greeter.
+
+AllowEmptyPassword="false"
+## Enable login for users without a password. This is discouraged. Makes the login bu>
+
+AllowBadUsernames="false"
+## Do not change this! Uppercase letters are generally not allowed in usernames. This>
+
+
+
+## [Locale Settings]
+
+Locale=""
+## The time and date locale should usually be set in your system settings. Only hard >
+
+HourFormat="hh:mm A"
+## Defaults to Locale.ShortFormat - Accepts "long" or a custom string like "hh:mm A".>
+
+DateFormat="dddd, d of MMMM"
+## Defaults to Locale.LongFormat - Accepts "short" or a custom string like "dddd, d '>
+
+## [Translations]
+HeaderText="Welcome!"
+
